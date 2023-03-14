@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+    <title>Date Picker App</title>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/datetime@1.2.1/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/core@1.2.1/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/base-plugin@1.2.1/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/range-plugin@1.2.1/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/lock-plugin@1.2.1/dist/index.umd.min.js"></script>
+</head>
+<body>
+    <script type="module" src="./app.js"></script>    
+    <form style="text-align:center;">
+        <h1>Select an item to rent and see its avaliable dates</h1>
+        <br>
+        <select id= "dropdown"></select>
+    </form>
+    <br>
+    <div style="text-align:center;" class="date" id="datepicker">
+        <input id="datepicker"/>
+        <script type="module"> 
+
+            var baseUrl = 'http://localhost:8080/';
+
+            async function fillDropdown() {
+                //Fetches the clothing options from the backend and populates the dropdown menu
+
+                var res = await fetch(baseUrl + 'clothingOptions/options?key=',
+                    {
+                        method: 'GET'
+                    })
+                var items = await res.json();
+                var selectElement = document.getElementById("dropdown");
+
+                for (let i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    var option = document.createElement("option");
+                    option.text = item;
+                    option.value = item;
+                    selectElement.add(option);
+                }
+            }
+            fillDropdown();
+
+            var bookedDates = [];
+
+            async function getInfo(itemName) {
+                //Fetches the unavaliable days and stores them in an array as bookedDates
+
+                var res = await fetch(baseUrl + 'info/avaliability?key=' + itemName,
+                    {
+                        method: 'GET'
+                    })
+                bookedDates = await res.json();
+            }
+            function itemSelected() {
+                if (itemSelected != undefined) {
+                    var itemName = this.value;
+                    getInfo(itemName);
+                }
+            }
+            document.getElementById("dropdown").onchange = itemSelected;
+
+            //Creating the picker and locking bookedDates
+            const picker = new easepick.create({
+                element: document.getElementById('datepicker'),
+                css: [
+                    'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+                ],
+                plugins: ['LockPlugin', 'RangePlugin'],
+                LockPlugin: {
+                    inseparable: true,
+                    filter(date, picked) {
+                        return bookedDates.includes(date.format('YYYY-MM-DD'));
+                    }
+                },
+                RangePlugin: {
+                    tooltip: true,
+                },
+            });        
+        </script>
+    </div>
+</body>
+</html>
