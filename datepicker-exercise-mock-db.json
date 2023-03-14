@@ -1,0 +1,68 @@
+{
+  "InventoryItems": [
+    {
+      "InventoryItemId": "1",
+      "ProductVariantId": "NiceXLBlueJacket",
+      "AssetId": "NiceXLBlueJacket_1"
+    },
+    {
+      "InventoryItemId": "2",
+      "ProductVariantId": "NiceXLBlueJacket",
+      "AssetId": "NiceXLBlueJacket_2"
+    },
+        {
+      "InventoryItemId": "3",
+      "ProductVariantId": "NiceXLBlueJacket",
+      "AssetId": "NiceXLBlueJacket_3"
+    },
+    {
+      "InventoryItemId": "4",
+      "ProductVariantId": "UglySRedJacket",
+      "AssetId": "UglySRedJacket_1"
+    },
+    {
+      "InventoryItemId": "5",
+      "ProductVariantId": "UglySRedJacket",
+      "AssetId": "UglySRedJacket_2"
+    }
+  ],
+  "OrderLines": [
+  {
+    "OrderLineId": "1",
+    "InventoryItemId": "4",
+    "StartDate": "2023-01-01",
+    "RentalPeriodDays": 1
+  },
+  {
+    "OrderLineId": "2",
+    "InventoryItemId": "4",
+    "StartDate": "2023-01-03",
+    "RentalPeriodDays": 7
+  },
+  {
+    "OrderLineId": "1",
+    "InventoryItemId": "5",
+    "StartDate": "2023-01-06",
+    "RentalPeriodDays": 14
+  },
+  {
+    "OrderLineId": "4",
+    "InventoryItemId": "2",
+    "StartDate": "2023-01-01",
+    "RentalPeriodDays": 1
+  },
+  {
+    "OrderLineId": "5",
+    "InventoryItemId": "2",
+    "StartDate": "2023-01-02",
+    "RentalPeriodDays": 10
+  },
+  {
+    "OrderLineId": "6",
+    "InventoryItemId": "1",
+    "StartDate": "2023-01-05",
+    "RentalPeriodDays": 14
+  }
+  ]
+  
+}
